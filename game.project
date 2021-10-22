@@ -1,0 +1,28 @@
+[bootstrap]
+main_collection = /main/main.collectionc
+render = /rendercam/rendercam.renderc
+
+[script]
+shared_state = 1
+
+[display]
+width = 640
+height = 480
+
+[android]
+input_method = HiddenInputField
+
+[project]
+title = BYOG
+dependencies#0 = https://github.com/rgrams/rendercam/archive/refs/tags/1.0.3.zip
+dependencies#1 = https://github.com/britzl/monarch/archive/refs/tags/3.4.3.zip
+
+[input]
+game_binding = /builtins/input/all.input_bindingc
+
+[render]
+clear_color_red = 0.11
+clear_color_green = 0.13
+clear_color_alpha = 255.0
+clear_color_blue = 0.18
+
