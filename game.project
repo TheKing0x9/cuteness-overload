@@ -1,5 +1,5 @@
 [bootstrap]
-main_collection = /main/main.collectionc
+main_collection = /collections/main.collectionc
 render = /rendercam/rendercam.renderc
 
 [script]
@@ -8,6 +8,8 @@ shared_state = 1
 [display]
 width = 640
 height = 480
+vsync = 0
+update_frequency = 60
 
 [android]
 input_method = HiddenInputField
