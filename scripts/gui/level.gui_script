@@ -1,0 +1,23 @@
+local printer = require "modules.ui.printer"
+local globals = require "modules.globals"
+local level = require "modules.level"
+
+function init(self)
+  self.text_node = gui.get_node("dialogue")
+  local text = level.get(globals.level)
+
+  self.printer = printer.new("dialogue")
+  self.printer:clear()
+  -- a small delay
+  timer.delay(0.1, false, function()
+    self.printer:print(text, function()
+      gui.animate(self.text_node, "color.w", 0, gui.EASING_LINEAR, 1, 2, function()
+        self.printer:clear()
+      end)
+    end)
+  end)
+end
+
+function update(self, dt)
+
+end

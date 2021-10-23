@@ -1,0 +1,36 @@
+local transitions = require "monarch.transitions.gui"
+
+local function fade_out(node, from, easing, duration, delay, cb)
+  local to = gui.get_color(node)
+  to.w = 1
+  gui.set_color(node, to)
+  gui.set_enabled(node, true)
+  to.w = 0
+  gui.animate(node, gui.PROP_COLOR, to, easing, duration, delay, function (self)
+    cb(self)
+    gui.set_enabled(node, false)
+  end)
+end
+
+local function fade_in(node, from, easing, duration, delay, cb)
+  local to = gui.get_color(node)
+  to.w = 0
+  gui.set_color(node, to)
+  gui.set_enabled(node, true)
+  to.w = 1
+  gui.animate(node, gui.PROP_COLOR, to, easing, duration, delay, function (self)
+    cb(self)
+    gui.set_enabled(node, false)
+  end)
+end
+
+function init(self)
+	gui.set_render_order(12)
+	self.transition = transitions.create(gui.get_node("fader"))
+		.show_in(transitions.fade_out, gui.EASING_LINEAR, 1, 0)
+		.show_out(transitions.fade_in, gui.EASING_LINEAR, 1, 0)
+end
+
+function on_message(self, message_id, message, sender)
+	self.transition.handle(message_id, message, sender)
+end

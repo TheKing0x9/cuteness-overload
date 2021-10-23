@@ -1,0 +1,33 @@
+go.property("cooldown", 2)
+go.property("player_script", msg.url("/player#player"))
+
+local function spawn_bullet(dir)
+  factory.create("/factories#bullet", go.get_position(), nil, {dir = vmath.vector3(dir, 0, 0)})
+end
+
+local message_map = {
+  [constants.COLLISION_RESPONSE] = function(self, message, sender)
+    if message.group == constants.PLAYER then
+      if self.on_cooldown then return end
+      local attacking = go.get(self.player_script, "attacking")
+
+      if attacking then
+        self.on_cooldown = true
+        local diff = go.get("/player", "position.x") - go.get(".", "position.x")
+
+        local dir = diff > 0 and -1 or 1
+        spawn_bullet(dir)
+
+        timer.delay(self.cooldown, false, function()
+          self.on_cooldown = false
+        end)
+      end
+    end
+  end
+}
+
+function on_message(self, message_id, message, sender)
+  if message_map[message_id] then
+    message_map[message_id](self, message, sender)
+  end
+end

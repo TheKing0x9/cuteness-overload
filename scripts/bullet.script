@@ -1,0 +1,29 @@
+go.property("speed", 200)
+go.property("dir", vmath.vector3(1, 0, 0))
+
+function init(self)
+  particlefx.play("#bullet")
+  go.set("#sprite", "scale", vmath.vector3(0.75))
+end
+
+function update(self, dt)
+  local position = go.get_position()
+  position = position + self.dir * self.speed * dt
+  go.set_position(position)
+end
+
+local message_map = {
+  [constants.COLLISION_RESPONSE] = function(self, message, sender)
+    if message.group == constants.OBJECTS then
+
+    elseif message.group == constants.GROUND then
+      go.delete()
+    end
+  end
+}
+
+function on_message(self, message_id, message, sender)
+  if message_map[message_id] then
+    message_map[message_id](self, message, sender)
+  end
+end

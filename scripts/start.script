@@ -1,0 +1,12 @@
+-- require the additions to the math module
+require "modules.internals.math"
+-- globally require the constants module
+constants = require "modules.internals.constants"
+
+local monarch = require "monarch.monarch"
+
+function init(self)
+	timer.delay(0.1, false, function()
+		monarch.show(hash("level1"))
+	end)
+end

@@ -28,9 +28,10 @@ end
 
 -- #endregion
 
--- #region weapon related constants
+-- #region id constants
 
 M.BULLET_FACTORY = "/factories#bullet"
+M.GAME_ID = "/game#game"
 
 -- #endregion
 
@@ -48,7 +49,9 @@ M.CONTACT_POINT_RESPONSE = hash("contact_point_response")
 
 M.GROUND = hash("ground")
 M.ENEMY = hash("enemy")
-
+M.PLAYER = hash("player")
+M.OBJECTS = hash("objects")
+M.BULLET= hash("bullet")
 -- #endregion
 
 -- #region inbuilt constants
@@ -62,17 +65,11 @@ M.PROXY_UNLOADED = hash("proxy_unloaded")
 
 -- #endregion
 
--- #region hud constants
-
-M.UPDATE_HEALTH = hash("update_health")
-M.HUD_ID = "/hud#hud"
-
--- #endregion
-
 -- #region project constants
 
 M.WIDTH = 640
 M.HEIGHT = 480
+M.MAX_LEVEL = 10
 -- window.get_size() can also be used
 
 -- #endregion

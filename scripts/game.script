@@ -1,0 +1,37 @@
+local globals = require "modules.globals"
+local monarch = require "monarch.monarch"
+
+go.property("quiet", false)
+
+function init(self)
+
+end
+
+function update(self, dt)
+
+end
+
+-- todo : add non quiet options
+function on_message(self, message_id, message, sender)
+  if message_id == hash("change_game_state") then
+    if message.won then
+      globals.level = globals.level + 1
+      if globals.level < constants.MAX_LEVEL then
+        -- switch to new level
+        if self.quiet then
+          monarch.replace("level" .. globals.level, { sequential = true })
+          return
+        end
+      else
+        -- switch to game won screen
+        monarch.replace("game_won", { sequential = true })
+      end
+    else
+      -- if we should quit quietly
+      if self.quiet then
+        monarch.replace("lost", { sequential = true })
+        return
+      end
+    end
+  end
+end

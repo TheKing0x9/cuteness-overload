@@ -1,6 +1,21 @@
 components {
-  id: "player"
-  component: "/scripts/player.script"
+  id: "bullet"
+  component: "/particlefx/bullet.particlefx"
+  position {
+    x: 0.0
+    y: 0.0
+    z: -0.1
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+}
+components {
+  id: "bullet1"
+  component: "/scripts/bullet.script"
   position {
     x: 0.0
     y: 0.0
@@ -17,7 +32,7 @@ embedded_components {
   id: "sprite"
   type: "sprite"
   data: "tile_set: \"/assets/tilesources/main.tilesource\"\n"
-  "default_animation: \"player_idle\"\n"
+  "default_animation: \"bullet\"\n"
   "material: \"/builtins/materials/sprite.material\"\n"
   "blend_mode: BLEND_MODE_ALPHA\n"
   ""
@@ -41,10 +56,9 @@ embedded_components {
   "mass: 0.0\n"
   "friction: 0.1\n"
   "restitution: 0.5\n"
-  "group: \"player\"\n"
-  "mask: \"ground\"\n"
-  "mask: \"enemy\"\n"
+  "group: \"bullet\"\n"
   "mask: \"objects\"\n"
+  "mask: \"ground\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
   "    shape_type: TYPE_SPHERE\n"
@@ -62,7 +76,7 @@ embedded_components {
   "    index: 0\n"
   "    count: 1\n"
   "  }\n"
-  "  data: 8.0\n"
+  "  data: 5.25\n"
   "}\n"
   "linear_damping: 0.0\n"
   "angular_damping: 0.0\n"

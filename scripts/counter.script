@@ -1,0 +1,20 @@
+go.property("level_complete_time", 60)
+go.property("max_score", 1000)
+
+function init(self)
+  self.label = "#label"
+  self.timer = self.level_complete_time
+end
+
+function update(self, dt)
+  self.timer = self.timer - dt
+  label.set_text(self.label, "Score : " .. math.floor(self.max_score * self.timer / self.level_complete_time))
+
+  if self.timer < 0 then
+    -- dispatch that the game has been lost
+  end
+end
+
+function on_message(self, message_id, message, sender)
+
+end
