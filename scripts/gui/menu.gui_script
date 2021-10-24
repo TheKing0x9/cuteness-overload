@@ -1,6 +1,5 @@
 local button = require "modules.ui.button"
 local monarch = require "monarch.monarch"
-local globals = require "modules.globals"
 
 function init(self)
   msg.post(".", "acquire_input_focus")

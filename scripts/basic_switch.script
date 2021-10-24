@@ -1,0 +1,16 @@
+go.property("target", msg.url())
+
+function init(self)
+  self.collided = false
+end
+
+function on_message(self, message_id, message, sender)
+  if message_id == constants.COLLISION_RESPONSE then
+    if message.group == constants.BULLET then
+      msg.post("#collisionobject", "disable")
+      go.delete(message.other_id)
+      sprite.play_flipbook("#sprite", "switch_toggle")
+      msg.post(self.target, "switch")
+    end
+  end
+end

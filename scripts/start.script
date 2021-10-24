@@ -2,11 +2,12 @@
 require "modules.internals.math"
 -- globally require the constants module
 constants = require "modules.internals.constants"
+globals = require "modules.globals"
 
 local monarch = require "monarch.monarch"
 
 function init(self)
 	timer.delay(0.1, false, function()
-		monarch.show(hash("level1"))
+		monarch.replace(hash("splash"))
 	end)
 end

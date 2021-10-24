@@ -1,6 +1,4 @@
-require "modules.internals.math"
-
-local constants = require "modules.internals.constants"
+local dispatcher = require "modules.crit.dispatcher"
 
 -- the max speed on ground
 go.property("max_ground_speed", 100)
@@ -16,6 +14,8 @@ go.property("jump_takeoff_speed", 240)
 
 -- whether the player is attacking
 go.property("attacking", false)
+
+go.property("mad_mode", false)
 
 local SPRITE = "#sprite"
 
@@ -33,6 +33,10 @@ function init(self)
   self.ground_contact = true
   self.previous_ground_contact = true
   self.anim = nil
+
+	timer.delay(0.01, false, function()
+		dispatcher.dispatch("switch_state", {state = self.mad_mode})
+	end)
 end
 
 local function play_animation(self, anim, callback)
@@ -74,6 +78,8 @@ local function decelerate(v, f, dt)
 end
 
 function update(self, dt)
+	if globals.over then return end
+
   self.velocity.y = self.velocity.y + self.gravity * dt
   self.velocity.y = math.clamp(self.velocity.y, -self.max_fall_speed, self.max_fall_speed)
 
@@ -139,6 +145,10 @@ function on_message(self, message_id, message, sender)
 		if message.group == constants.GROUND then
 			handle_obstacle_contact(self, message.normal, message.distance)
 		end
+	elseif message_id == constants.COLLISION_RESPONSE then
+		if message.group == constants.DANGER then
+			msg.post(constants.GAME_ID, "change_game_state", { won = false })
+		end
 	end
 end
 
@@ -183,6 +193,7 @@ end
 
 function on_input(self, action_id, action)
 	if self.anim == ANIM_ATTACK then return end
+	if globals.over then return end
 
 	if action_id == constants.KEY_A then
 		walk(self, -action.value)
@@ -196,5 +207,8 @@ function on_input(self, action_id, action)
 		end
 	elseif action_id == constants.KEY_SPACE and action.pressed then
 		attack(self)
+	elseif action_id == constants.KEY_E and action.pressed then
+		self.mad_mode = not self.mad_mode
+		dispatcher.dispatch("switch_state", {state = self.mad_mode} )
 	end
 end

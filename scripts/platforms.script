@@ -1,0 +1,27 @@
+go.property("count", 3)
+
+local function toggle(self, index)
+  index = index or 1
+
+  if index > self.count then
+    msg.post("#collisionobject", "enable")
+    return
+  end
+
+  sprite.play_flipbook("#sprite" .. index, "platform_open", function()
+      toggle(self, index + 1)
+  end)
+end
+
+function init(self)
+  msg.post("#collisionobject", "disable")
+end
+
+function on_message(self, message_id, message, sender)
+  if message_id == constants.SWITCH then
+    if not self.switched then
+      self.switched = true
+      toggle(self)
+    end
+  end
+end

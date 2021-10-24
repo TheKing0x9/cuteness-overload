@@ -1,0 +1,18 @@
+local printer = require "modules.ui.printer"
+local monarch = require "monarch.monarch"
+
+function init(self)
+  local logo = gui.get_node("splash")
+  self.printer = printer.new("text")
+  local text = "CYBERCRAP STUDIOS"
+  self.printer:clear()
+  -- a small delay
+  gui.animate(logo, "position.x", 320, go.EASING_LINEAR, 2, 1)
+  gui.animate(logo, "position.y", 240, go.EASING_OUTBOUNCE, 2, 1, function()
+    self.printer:print(text, function()
+      timer.delay(2, false, function()
+        monarch.replace("menu", { sequential = true })
+      end)
+    end)
+  end)
+end

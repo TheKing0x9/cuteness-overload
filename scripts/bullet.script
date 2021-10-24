@@ -1,6 +1,11 @@
 go.property("speed", 200)
 go.property("dir", vmath.vector3(1, 0, 0))
 
+local NORTH = vmath.vector3(0, 1, 0)
+local SOUTH = vmath.vector3(0, -1, 0)
+local EAST = vmath.vector3(1, 0, 0)
+local WEST = vmath.vector3(-1, 0, 0)
+
 function init(self)
   particlefx.play("#bullet")
   go.set("#sprite", "scale", vmath.vector3(0.75))
@@ -12,10 +17,34 @@ function update(self, dt)
   go.set_position(position)
 end
 
+local function swap(self, a, b)
+  if self.dir == a then self.dir = -b
+  elseif self.dir == b then self.dir = -a
+  else go.delete() end
+end
+
 local message_map = {
   [constants.COLLISION_RESPONSE] = function(self, message, sender)
     if message.group == constants.OBJECTS then
-
+      local exists, script = pcall(msg.url, nil, message.other_id, "mirror")
+      if exists then
+        local angle = go.get(message.other_id, "euler.z")
+        pprint(message.other_id)
+        -- very bad and sad reflection logic
+        angle = angle % 360
+        pprint(angle)
+        if math.abs(angle) < 5 then
+          swap(self, EAST, SOUTH)
+        elseif math.abs(angle - 90) < 5 then
+          swap(self, EAST, NORTH)
+        elseif math.abs(angle - 180) < 5 then
+          swap(self, WEST, NORTH)
+        elseif math.abs(angle - 270) < 5 then
+          swap(self, WEST, SOUTH)
+        elseif math.abs(angle - 360) < 5 then
+          swap(self, EAST, SOUTH)
+        end
+      end
     elseif message.group == constants.GROUND then
       go.delete()
     end

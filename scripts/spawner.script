@@ -1,8 +1,8 @@
-go.property("cooldown", 2)
+go.property("cooldown", 1)
 go.property("player_script", msg.url("/player#player"))
 
 local function spawn_bullet(dir)
-  factory.create("/factories#bullet", go.get_position(), nil, {dir = vmath.vector3(dir, 0, 0)})
+  factory.create("/factories#bullet", go.get_position() - constants.SMALL_Z, nil, {dir = vmath.vector3(dir, 0, 0)})
 end
 
 local message_map = {

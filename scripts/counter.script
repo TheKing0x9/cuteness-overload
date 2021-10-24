@@ -1,20 +1,33 @@
+local dispatcher = require "modules.crit.dispatcher"
+
 go.property("level_complete_time", 60)
 go.property("max_score", 1000)
 
 function init(self)
   self.label = "#label"
   self.timer = self.level_complete_time
+
+  self.sub_id = dispatcher.subscribe({ constants.CHANGE_GAME_STATE })
+end
+
+function final(self)
+  dispatcher.unsubscribe(self.sub_id)
 end
 
 function update(self, dt)
   self.timer = self.timer - dt
-  label.set_text(self.label, "Score : " .. math.floor(self.max_score * self.timer / self.level_complete_time))
+  local score_txt = math.max(math.floor(self.max_score * self.timer / self.level_complete_time), 0)
+  label.set_text(self.label, "Score : " .. score_txt)
 
   if self.timer < 0 then
-    -- dispatch that the game has been lost
+    msg.post(constants.GAME_ID, "change_game_state", { won = false })
   end
 end
 
 function on_message(self, message_id, message, sender)
-
+  if message_id == constants.CHANGE_GAME_STATE then
+    pprint("change")
+    local score_txt = math.max(math.floor(self.max_score * self.timer / self.level_complete_time), 0)
+    globals.score = globals.score + score_txt
+  end
 end

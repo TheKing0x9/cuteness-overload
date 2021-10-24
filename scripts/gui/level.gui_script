@@ -1,5 +1,4 @@
 local printer = require "modules.ui.printer"
-local globals = require "modules.globals"
 local level = require "modules.level"
 
 function init(self)

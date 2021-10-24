@@ -1,0 +1,21 @@
+local dispatcher = require "modules.crit.dispatcher"
+
+go.property("mad", true)
+
+function init(self)
+  self.sub_id = dispatcher.subscribe( { constants.SWITCH_STATE } )
+end
+
+function final(self)
+  dispatcher.unsubscribe(self.sub_id)
+end
+
+function on_message(self, message_id, message, sender)
+  if message_id == constants.SWITCH_STATE then
+    if message.state == self.mad then
+      msg.post(".", "enable")
+    else
+      msg.post(".", "disable")
+    end
+  end
+end

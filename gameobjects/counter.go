@@ -12,6 +12,16 @@ components {
     z: 0.0
     w: 1.0
   }
+  properties {
+    id: "level_complete_time"
+    value: "60.0"
+    type: PROPERTY_TYPE_NUMBER
+  }
+  properties {
+    id: "max_score"
+    value: "1000.0"
+    type: PROPERTY_TYPE_NUMBER
+  }
 }
 embedded_components {
   id: "label"

@@ -1,0 +1,7 @@
+function on_message(self, message_id, message, sender)
+  if message_id == constants.SWITCH then
+    sprite.play_flipbook("#sprite", "door_open", function()
+      msg.post("#collisionobject", "disable")
+    end)
+  end
+end

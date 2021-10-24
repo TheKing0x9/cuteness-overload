@@ -1,0 +1,37 @@
+go.property("direction", vmath.vector3(0, 1, 0))
+go.property("distance", 200)
+go.property("is_enabled", true)
+go.property("speed", 100)
+
+function init(self)
+  self.covered_distance = 0
+end
+
+function update(self, dt)
+  if not self.is_enabled then
+    return
+  end
+
+  local position = go.get_position()
+  position = position + self.direction * self.speed * dt
+  go.set_position(position)
+
+  self.covered_distance = self.covered_distance + self.speed * dt
+
+  if self.covered_distance > self.distance then
+    self.is_enabled = false
+    timer.delay(2, false, function()
+      self.is_enabled = true
+      self.covered_distance = 0
+      self.direction = vmath.rotate(vmath.quat_rotation_z(math.pi), self.direction)
+    end)
+  end
+end
+
+function on_message(self, message_id, message, sender)
+  if message_id == hash("enable") then
+    self.is_enabled = true
+  elseif message_id == hash("disable") then
+    self.is_enabled = false
+  end
+end

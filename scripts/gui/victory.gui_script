@@ -1,0 +1,28 @@
+local button = require "modules.ui.button"
+local monarch = require "monarch.monarch"
+local printer = require "modules.ui.printer"
+
+function init(self)
+  msg.post(".", "acquire_input_focus")
+  self.button = button.create()
+
+  self.button:register("menu/root")
+  self.button:register_on_click("menu/root", function()
+    monarch.replace("credits", {sequential = true})
+  end)
+
+  local text = "Cutey save the Cute world from Madness incursion."
+
+  self.printer = printer.new("defeat_text")
+  self.printer:clear()
+  -- a small delay
+  timer.delay(0.1, false, function()
+    self.printer:print(text)
+  end)
+
+  gui.set_text(gui.get_node("score_text"), "Score : " .. globals.score)
+end
+
+function on_input(self, action_id, action)
+  self.button:on_input(action_id, action)
+end

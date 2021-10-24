@@ -17,7 +17,7 @@ embedded_components {
   id: "sprite"
   type: "sprite"
   data: "tile_set: \"/assets/tilesources/main.tilesource\"\n"
-  "default_animation: \"mini_idle\"\n"
+  "default_animation: \"reset_idle\"\n"
   "material: \"/builtins/materials/sprite.material\"\n"
   "blend_mode: BLEND_MODE_ALPHA\n"
   ""

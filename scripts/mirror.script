@@ -1,0 +1,39 @@
+go.property("player_script", msg.url("/player#player"))
+go.property("euler", 90)
+
+function init(self)
+  go.set(".", "euler.z", self.euler)
+end
+
+local message_map = {
+  [constants.COLLISION_RESPONSE] = function(self, message, sender)
+    if message.group == constants.PLAYER then
+      if self.on_cooldown then return end
+      local attacking = go.get(self.player_script, "attacking")
+
+      if attacking then
+        self.on_cooldown = true
+
+        local euler = go.get(".", "euler.z")
+        local target = euler + 90
+
+        go.animate(".", "euler.z", go.PLAYBACK_ONCE_FORWARD, target, go.EASING_LINEAR, 0.5, 0, function()
+          self.on_cooldown = false
+        end)
+      end
+    elseif message.group == constants.BULLET then
+      sprite.play_flipbook("#sprite", "mirror_hit")
+      msg.post("#hit", "disable")
+      timer.delay(0.25, false, function()
+        sprite.play_flipbook("#sprite", "mirror_normal")
+        msg.post("#hit", "enable")
+      end)
+    end
+  end
+}
+
+function on_message(self, message_id, message, sender)
+  if message_map[message_id] then
+    message_map[message_id](self, message, sender)
+  end
+end

@@ -51,7 +51,9 @@ M.GROUND = hash("ground")
 M.ENEMY = hash("enemy")
 M.PLAYER = hash("player")
 M.OBJECTS = hash("objects")
-M.BULLET= hash("bullet")
+M.BULLET = hash("bullet")
+M.DANGER = hash("danger")
+
 -- #endregion
 
 -- #region inbuilt constants
@@ -69,12 +71,16 @@ M.PROXY_UNLOADED = hash("proxy_unloaded")
 
 M.WIDTH = 640
 M.HEIGHT = 480
-M.MAX_LEVEL = 10
+M.MAX_LEVEL = 5
 -- window.get_size() can also be used
 
 -- #endregion
 
 -- #region custom messages
+
+M.CHANGE_GAME_STATE = hash("change_game_state")
+M.SWITCH = hash("switch")
+M.SWITCH_STATE = hash("switch_state")
 
 -- #endregion
 

@@ -30,7 +30,7 @@ email=""
 auth=""
 
 # Use texture compression as specified in texture profiles
-texture_compression=true
+texture_compression=false
 
 # Generate the symbol file (if applicable)
 with_symbols=true

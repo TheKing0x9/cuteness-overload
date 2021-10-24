@@ -7,8 +7,8 @@ function on_message(self, message_id, message, sender)
     if message.group == constants.BULLET then
       self.collided = true
       go.delete(message.other_id)
-
       msg.post(constants.GAME_ID, "change_game_state", { won = true })
+      sprite.play_flipbook("#sprite", "reset_done")
     end
   end
 end

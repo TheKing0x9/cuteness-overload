@@ -1,38 +1,5 @@
 name: "credits"
 instances {
-  id: "credits_camera"
-  prototype: "/rendercam/camera.go"
-  position {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  component_properties {
-    id: "script"
-    properties {
-      id: "fixedAspectRatio"
-      value: "true"
-      type: PROPERTY_TYPE_BOOLEAN
-    }
-    properties {
-      id: "aspectRatio"
-      value: "4.0, 3.0, 0.0"
-      type: PROPERTY_TYPE_VECTOR3
-    }
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-instances {
   id: "background"
   prototype: "/gameobjects/background.go"
   position {
@@ -49,6 +16,34 @@ instances {
   scale3 {
     x: 40.0
     y: 30.0
+    z: 1.0
+  }
+}
+instances {
+  id: "credits_camera"
+  prototype: "/orthographic/camera.go"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  component_properties {
+    id: "script"
+    properties {
+      id: "projection"
+      value: "FIXED_AUTO"
+      type: PROPERTY_TYPE_HASH
+    }
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
     z: 1.0
   }
 }

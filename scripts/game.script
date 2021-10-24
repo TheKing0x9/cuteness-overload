@@ -1,19 +1,19 @@
-local globals = require "modules.globals"
 local monarch = require "monarch.monarch"
+local dispatcher = require "modules.crit.dispatcher"
 
 go.property("quiet", false)
 
 function init(self)
-
-end
-
-function update(self, dt)
-
+  globals.over = false
 end
 
 -- todo : add non quiet options
 function on_message(self, message_id, message, sender)
+  if globals.over then return end
+
   if message_id == hash("change_game_state") then
+    dispatcher.dispatch("change_game_state")
+    globals.over = true
     if message.won then
       globals.level = globals.level + 1
       if globals.level < constants.MAX_LEVEL then
@@ -24,12 +24,12 @@ function on_message(self, message_id, message, sender)
         end
       else
         -- switch to game won screen
-        monarch.replace("game_won", { sequential = true })
+        monarch.replace("won", { sequential = true })
       end
     else
       -- if we should quit quietly
       if self.quiet then
-        monarch.replace("lost", { sequential = true })
+        monarch.replace("over", { reload = true, sequential = true })
         return
       end
     end
