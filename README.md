@@ -13,7 +13,8 @@ which drastically change the world around Cutey and offers and exciting gameplay
 ## Controls
 
 - `W`, `A`, `S`, `D` to move.
-- `Q` to interact.
+- `Space` to interact.
+- `E` to switch.
 
 ## The story
 
@@ -34,7 +35,7 @@ When the timer runs out or Cutey is caught by a mad creature
 
 ### Enemies
 
-T.B.D.
+Nah, who needs them anyway
 
 ### Player
 
@@ -52,8 +53,6 @@ total of x minutes of gameplay.
 This game could not be possible without
 
 - The art from 0x72
-- The music from Strofe
-- The sfx from Chiptone
-- Rendercam from Ross Grams
-- Monarch and Gooey from Bjorn Ritzl
+- The music from Superpowers assets pack
+- Monarch and Orthographic from Bjorn Ritzl
 - And last but not the least, [Defold](https://defold.com) from the awesome Defold Team.
