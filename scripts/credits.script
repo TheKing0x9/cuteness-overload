@@ -3,6 +3,6 @@ local monarch = require "monarch.monarch"
 function init(self)
   go.set(".", "position.y", -300)
   go.animate(".", "position.y", go.PLAYBACK_ONCE_FORWARD, 600, go.EASING_LINEAR, 20, 0, function()
-    monarch.replace("menu", {sequential = true})
+    monarch.replace("menu", {reload = true, sequential = true})
   end)
 end

@@ -19,12 +19,12 @@ function on_message(self, message_id, message, sender)
       if globals.level < constants.MAX_LEVEL then
         -- switch to new level
         if self.quiet then
-          monarch.replace("level" .. globals.level, { sequential = true })
+          monarch.replace("level" .. globals.level, { reload = true, sequential = true })
           return
         end
       else
         -- switch to game won screen
-        monarch.replace("won", { sequential = true })
+        monarch.replace("won", { reload = true, sequential = true })
       end
     else
       -- if we should quit quietly

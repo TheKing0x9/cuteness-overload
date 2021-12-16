@@ -9,12 +9,12 @@ function init(self)
 
   self.button:register("play/root")
   self.button:register_on_click("play/root", function()
-    monarch.replace("level1", {sequential = true})
+    monarch.replace("level1", {reload = true, sequential = true})
   end)
 
   self.button:register("credits/root")
   self.button:register_on_click("credits/root", function()
-    monarch.replace("credits", {sequential = true})
+    monarch.replace("credits", {reload = true, sequential = true})
   end)
 
   self.button:register("audio/root")

@@ -7,7 +7,7 @@ local command = require "core.command"
 local keymap  = require "core.keymap"
 local core = require "core"
 
-local autocomplete = require "plugins.autocomplete"
+local autocomplete = require "plugins.newautocomplete"
 
 autocomplete.add { name = "defold", items = {
  ["go.get_position()"] = "get a gameobject's position",
